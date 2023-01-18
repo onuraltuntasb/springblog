@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -67,11 +68,14 @@ public class User implements UserDetails {
     private List<Role> roles;
 
 
+    @OneToMany(fetch = FetchType.LAZY,orphanRemoval = true,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private Set<Post> posts;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
         for(Role r : getRoles()){
-            log.info("sanmam :{}",r.getName());
             list.add(new SimpleGrantedAuthority(r.getName()));
         }
         return list;

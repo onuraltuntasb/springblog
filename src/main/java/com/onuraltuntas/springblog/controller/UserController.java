@@ -1,11 +1,10 @@
 package com.onuraltuntas.springblog.controller;
 
 
-import com.onuraltuntas.springblog.entity.Role;
 import com.onuraltuntas.springblog.entity.User;
 import com.onuraltuntas.springblog.model.dto.UserDTO;
-import com.onuraltuntas.springblog.payload.request.CheckAuthRequest;
-import com.onuraltuntas.springblog.payload.request.TokenRefreshRequest;
+import com.onuraltuntas.springblog.model.payload.request.CheckAuthRequest;
+import com.onuraltuntas.springblog.model.payload.request.TokenRefreshRequest;
 import com.onuraltuntas.springblog.security.JwtUtils;
 import com.onuraltuntas.springblog.service.UserService;
 import jakarta.validation.Valid;
@@ -15,9 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

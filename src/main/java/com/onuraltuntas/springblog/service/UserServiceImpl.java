@@ -1,13 +1,12 @@
 package com.onuraltuntas.springblog.service;
 
 import com.onuraltuntas.springblog.entity.RefreshToken;
-import com.onuraltuntas.springblog.entity.Role;
 import com.onuraltuntas.springblog.entity.User;
 import com.onuraltuntas.springblog.exception.ResourceNotFoundException;
 import com.onuraltuntas.springblog.exception.TokenRefreshException;
-import com.onuraltuntas.springblog.payload.request.TokenRefreshRequest;
-import com.onuraltuntas.springblog.payload.response.TokenRefreshResponse;
-import com.onuraltuntas.springblog.payload.response.UserAuthResponse;
+import com.onuraltuntas.springblog.model.payload.request.TokenRefreshRequest;
+import com.onuraltuntas.springblog.model.payload.response.TokenRefreshResponse;
+import com.onuraltuntas.springblog.model.payload.response.UserAuthResponse;
 import com.onuraltuntas.springblog.repository.RefreshTokenRepository;
 import com.onuraltuntas.springblog.repository.RoleRepository;
 import com.onuraltuntas.springblog.repository.UserRepository;
@@ -21,9 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 
 @Service
@@ -62,7 +59,6 @@ public class UserServiceImpl implements UserService{
             //save user
             rUser = userRepository.save(user);
 
-        log.info("buraya geldi mi 1");
 
         return rUser;
     }

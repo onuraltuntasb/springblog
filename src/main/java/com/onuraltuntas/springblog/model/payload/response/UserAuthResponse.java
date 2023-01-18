@@ -1,4 +1,4 @@
-package com.onuraltuntas.springblog.payload.response;
+package com.onuraltuntas.springblog.model.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,13 +1,10 @@
 package com.onuraltuntas.springblog.service;
 
 
-import com.onuraltuntas.springblog.entity.Role;
 import com.onuraltuntas.springblog.entity.User;
-import com.onuraltuntas.springblog.payload.request.TokenRefreshRequest;
-import com.onuraltuntas.springblog.payload.response.TokenRefreshResponse;
-import com.onuraltuntas.springblog.payload.response.UserAuthResponse;
-
-import java.util.List;
+import com.onuraltuntas.springblog.model.payload.request.TokenRefreshRequest;
+import com.onuraltuntas.springblog.model.payload.response.TokenRefreshResponse;
+import com.onuraltuntas.springblog.model.payload.response.UserAuthResponse;
 
 public interface UserService {
     User registerUser(User user, boolean authenticated);

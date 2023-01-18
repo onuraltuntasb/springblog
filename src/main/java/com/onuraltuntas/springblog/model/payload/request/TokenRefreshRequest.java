@@ -1,4 +1,4 @@
-package com.onuraltuntas.springblog.payload.request;
+package com.onuraltuntas.springblog.model.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
