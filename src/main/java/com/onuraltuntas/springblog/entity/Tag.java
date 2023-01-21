@@ -25,5 +25,4 @@ public class Tag {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
-
 }

@@ -5,25 +5,20 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode
 @Builder
 @Slf4j
 @Table(name = "user")
@@ -58,7 +53,7 @@ public class User implements UserDetails {
     private UserStatus status;
 
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade ={CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER,cascade ={CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
@@ -68,9 +63,9 @@ public class User implements UserDetails {
     private List<Role> roles;
 
 
-    @OneToMany(fetch = FetchType.LAZY,orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,orphanRemoval = true)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private Set<Post> posts;
+    private Set<Post> posts = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

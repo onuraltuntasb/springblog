@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -37,14 +38,14 @@ public class Comment {
 
     @NotNull
     @Min(0)
-    private int like;
+    private int likeCount;
 
     @NotNull
     @Min(0)
-    private int dislike;
+    private int dislikeCount;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,cascade = CascadeType.ALL )
     @JoinColumn(name = "comment_id",referencedColumnName = "id")
-    private Set<Comment> commentSet;
+    private Set<Comment> comments = new HashSet<>();
 
 }

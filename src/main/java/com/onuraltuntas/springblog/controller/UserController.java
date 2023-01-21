@@ -31,9 +31,6 @@ public class UserController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user){
 
 
-
-        log.info("buraya geldi mi ");
-
         return ResponseEntity.ok(
                 userService.setUserOtherParams(
                         userService.registerUser(

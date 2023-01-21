@@ -50,7 +50,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .expressionHandler(webSecurityExpressionHandlerOverride())
-                .requestMatchers("/api/user/**")
+                //TODO set api access with authorities later
+                .requestMatchers("/api/**")
                 .permitAll()
                 .requestMatchers("/api/greetings/**")
                 .hasAuthority("ROLE_ADMIN")

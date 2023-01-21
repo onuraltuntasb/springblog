@@ -2,7 +2,7 @@ package com.onuraltuntas.springblog.setup;
 
 import com.onuraltuntas.springblog.entity.Privilege;
 import com.onuraltuntas.springblog.entity.Role;
-import com.onuraltuntas.springblog.repository.PriviligeRepository;
+import com.onuraltuntas.springblog.repository.PrivilegeRepository;
 import com.onuraltuntas.springblog.repository.RoleRepository;
 import com.onuraltuntas.springblog.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -20,7 +20,7 @@ public class SetupDataLoader implements
         ApplicationListener<ContextRefreshedEvent> {
 
 
-    private final PriviligeRepository priviligeRepository;
+    private final PrivilegeRepository privilegeRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
@@ -59,10 +59,10 @@ public class SetupDataLoader implements
     @Transactional
     Privilege createPrivilegeIfNotFound(String name) {
 
-      Privilege privilege = priviligeRepository.findByName(name);
+      Privilege privilege = privilegeRepository.findByName(name);
         if (privilege == null) {
             privilege = new Privilege(name);
-            priviligeRepository.save(privilege);
+            privilegeRepository.save(privilege);
         }
         return privilege;
     }
