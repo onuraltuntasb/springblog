@@ -1,12 +1,16 @@
 package com.onuraltuntas.springblog.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,6 +27,13 @@ public class Tag {
     @NotBlank
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Post post;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "tags")
+    @JsonIgnore
+    private Set<Post> posts = new HashSet<>();
 }

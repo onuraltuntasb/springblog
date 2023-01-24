@@ -9,14 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
-import static org.assertj.core.api.ClassBasedNavigableIterableAssert.assertThat;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -67,6 +65,30 @@ class PostServiceImplTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(postRepository.save(any())).then(returnsFirstArg());
         Post post = underTest.savePost(postRequest, 1L);
+
+        //then
+        verify(postRepository,times(1)).save(post);
+
+    }
+
+    @Test
+    void updatePost() {
+
+        Date date = new Date();
+        Post post = Post.builder()
+                .id(1L)
+                .header("header1")
+                .content("content1")
+                .creationDate(date)
+                .lastUpdateDate(date)
+                .likeCount(0)
+                .dislikeCount(0)
+                .popular(0.0)
+                .build();
+
+        // when
+        when(postRepository.findById(1L)).thenReturn(Optional.of(post));
+        underTest.updatePost(post, 1L);
 
         //then
         verify(postRepository,times(1)).save(post);

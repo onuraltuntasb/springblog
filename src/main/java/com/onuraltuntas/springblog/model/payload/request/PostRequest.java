@@ -1,11 +1,10 @@
 package com.onuraltuntas.springblog.model.payload.request;
 
-import com.onuraltuntas.springblog.entity.Tag;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,5 +13,5 @@ public class PostRequest {
     private String content;
     private Date createDate;
     private Date lastUpdateDate;
-    private Set<Tag> tags;
+    private List<PostListIdRequest> tags;
 }

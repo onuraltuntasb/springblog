@@ -1,5 +1,6 @@
 package com.onuraltuntas.springblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.*;
@@ -17,6 +19,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Slf4j
 @Table(name = "post")
 public class Post {
 
@@ -39,10 +42,6 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="post_id",referencedColumnName = "id")
-    private Set<Tag> tags = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name="post_id",referencedColumnName = "id")
     private Set<Comment> comments = new HashSet<>();
 
     @NotNull
@@ -58,5 +57,27 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade ={CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(name="post_tag",
+            joinColumns = {@JoinColumn(name="post_id")},
+            inverseJoinColumns = {@JoinColumn(name="tag_id")})
+    @JsonIgnore
+    private Set<Tag> tags = new HashSet<>();
+
+    //TODO idk why this.tags come empty
+
+    public void removeTag(Long tagId) {
+
+        log.info("tags : {}",this.tags);
+
+        Tag tag = this.tags.stream().filter(t -> t.getId() == tagId).findFirst().orElse(null);
+        if (tag != null) {
+            this.tags.remove(tag);
+            tag.getPosts().remove(this);
+        }
+    }
 
 }
