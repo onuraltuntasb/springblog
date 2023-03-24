@@ -25,7 +25,7 @@ public class PostServiceImpl implements PostService{
     private final TagRepository tagRepository;
 
     @Override
-    public Post updatePost(Post post, Long postId) {
+    public Post updatePost(PostRequest post, Long postId) {
 
     Post rPost = postRepository.findById(postId).orElseThrow(
             ()->new ResourceNotFoundException("Post not found with this id : "+ postId)
@@ -33,15 +33,28 @@ public class PostServiceImpl implements PostService{
 
     rPost.setContent(post.getContent());
     rPost.setHeader(post.getHeader());
-    rPost.setTags(post.getTags());
+
+    List<PostListIdRequest> requestPostIds = post.getTags();
+    Set<Tag> tags = new HashSet<>();
+
+    if(requestPostIds!=null){
+        for (int i = 0; i < requestPostIds.size();i++){
+            log.info("postId : {}",requestPostIds.get(i).getId());
+
+            Long rId =requestPostIds.get(i).getId();
+            tags.add(tagRepository.findById(rId)
+                    .orElseThrow(()-> new ResourceNotFoundException("Tag not found with this id : "+rId )));
+
+        }
+    }
+    rPost.setTags(tags);
+
 
     return postRepository.save(rPost);
     }
 
     @Override
     public Post savePost(PostRequest postRequest, Long userId) {
-
-
 
         List<PostListIdRequest> requestPostIds = postRequest.getTags();
         Set<Tag> tags = new HashSet<>();
@@ -60,6 +73,10 @@ public class PostServiceImpl implements PostService{
 
         Date date = new Date();
 
+        User user = userRepository.findById(userId).orElseThrow(
+                ()->new ResourceNotFoundException("User not found with this id : "+ userId)
+        );
+
         Post post = Post.builder()
                 .header(postRequest.getHeader())
                 .content(postRequest.getContent())
@@ -72,10 +89,10 @@ public class PostServiceImpl implements PostService{
                 .build();
 
 
+        //post.userId(userId)
+        //post.userEmail(user.getEmail)
 
-        User user = userRepository.findById(userId).orElseThrow(
-                ()->new ResourceNotFoundException("User not found with this id : "+ userId)
-        );
+        //TODO when create-drop its ok because many to one relation. But now it needs model adapter.
 
         user.getPosts().add(post);
 

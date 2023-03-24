@@ -53,7 +53,7 @@ public class SecurityConfig {
                 //TODO set api access with authorities later
                 .requestMatchers("/api/**")
                 .permitAll()
-                .requestMatchers("/api/greetings/**")
+                .requestMatchers("/api/tag/**")
                 .hasAuthority("ROLE_ADMIN")
                 .anyRequest()
                 .authenticated()

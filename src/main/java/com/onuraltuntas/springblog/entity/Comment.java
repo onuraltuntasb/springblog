@@ -1,5 +1,6 @@
 package com.onuraltuntas.springblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +34,10 @@ public class Comment {
     @NotNull
     private Date creationDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    private Date lastUpdateDate;
+
     @NotBlank
     private String content;
 
@@ -43,6 +48,12 @@ public class Comment {
     @NotNull
     @Min(0)
     private int dislikeCount;
+
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade ={CascadeType.PERSIST,CascadeType.MERGE}
+          )
+    private User user;
+
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,cascade = CascadeType.ALL )
     @JoinColumn(name = "comment_id",referencedColumnName = "id")

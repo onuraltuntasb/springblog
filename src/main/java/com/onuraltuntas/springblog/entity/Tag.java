@@ -25,14 +25,12 @@ public class Tag {
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String name;
 
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
+            cascade ={CascadeType.PERSIST,CascadeType.MERGE},
             mappedBy = "tags")
     @JsonIgnore
     private Set<Post> posts = new HashSet<>();

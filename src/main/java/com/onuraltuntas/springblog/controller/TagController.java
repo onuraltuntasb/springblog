@@ -1,9 +1,7 @@
 package com.onuraltuntas.springblog.controller;
 
-import com.onuraltuntas.springblog.entity.Post;
 import com.onuraltuntas.springblog.entity.Tag;
-import com.onuraltuntas.springblog.model.dto.PostDTO;
-import com.onuraltuntas.springblog.model.payload.request.PostRequest;
+
 import com.onuraltuntas.springblog.repository.TagRepository;
 import com.onuraltuntas.springblog.service.TagService;
 import jakarta.validation.Valid;
@@ -31,7 +29,8 @@ public class TagController {
 
     @PutMapping("/update")
     public ResponseEntity<?> updateTag(@Valid @RequestBody Tag tag, @RequestParam(value = "tag-id")Long tagId
-            , @RequestParam(value = "user-id")Long userId){
+            , @RequestParam(value = "user-id")Long userId,
+                @RequestHeader (name="Authorization") String token){
 
         if(userId == null || tagId == null){
             return ResponseEntity.badRequest().body("Bad request!");

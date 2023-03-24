@@ -2,24 +2,22 @@ package com.onuraltuntas.springblog.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Slf4j
 @Table(name = "post")
 public class Post {
 
@@ -64,17 +62,21 @@ public class Post {
     @JoinTable(name="post_tag",
             joinColumns = {@JoinColumn(name="post_id")},
             inverseJoinColumns = {@JoinColumn(name="tag_id")})
-    @JsonIgnore
     private Set<Tag> tags = new HashSet<>();
 
-    //TODO idk why this.tags come empty
 
+    @Transactional
     public void removeTag(Long tagId) {
 
-        log.info("tags : {}",this.tags);
+        System.out.println("bak");
+        System.out.println(this.tags);
+
 
         Tag tag = this.tags.stream().filter(t -> t.getId() == tagId).findFirst().orElse(null);
         if (tag != null) {
+            System.out.println("hey");
+            System.out.println(tag);
+
             this.tags.remove(tag);
             tag.getPosts().remove(this);
         }

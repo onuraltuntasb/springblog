@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +25,8 @@ public class JwtUtils {
     @Value("${onuraltuntas.app.jwtSecret}")
     private String jwtSigningKey;
 
-    @Value("${onuraltuntas.app.jwtRefreshExpirationMs}")
-    private int jwtExpirationMs;
+    @Value("${onuraltuntas.app.jwtExpirationMs}")
+    private Long jwtExpirationMs;
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
@@ -37,6 +38,24 @@ public class JwtUtils {
         final Claims claims = extractAllClaims(token);
         return claims.get(claimName) !=null;
     }
+
+    public String getString(String name,Claims claims) {
+        Object v = claims.get(name);
+        return v != null ? String.valueOf(v) : null;
+    }
+
+    public String getAuthorityClaim(String token){
+        Claims claims = extractAllClaims(token.substring(7));
+        String authorities = getString("authorities",claims);
+        String st = authorities.substring(12);
+        String auth =st.substring(0,st.length() -2);
+
+        return auth;
+    }
+
+
+
+
 
     public<T> T extractClaim(String token, Function<Claims,T> claimsResolver){
         final Claims claims = extractAllClaims(token);
@@ -60,6 +79,7 @@ public class JwtUtils {
 
         return Jwts.builder().setClaims(claims)
                 .setSubject(userDetails.getUsername())
+
                 //TODO authorities
                 .claim("authorities",userDetails.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))

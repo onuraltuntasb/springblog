@@ -4,9 +4,9 @@ onuraltuntas:
     jwtSecret:
       secretKey
     jwtExpirationMs:
-      3600000
+      86400000 # 1day
     jwtRefreshExpirationMs:
-      86400000
+      2592000000 # 1month
 
 spring:
   datasource:

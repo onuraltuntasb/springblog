@@ -2,9 +2,11 @@ package com.onuraltuntas.springblog.controller;
 
 
 import com.onuraltuntas.springblog.entity.User;
+import com.onuraltuntas.springblog.exception.ResourceNotFoundException;
 import com.onuraltuntas.springblog.model.dto.UserDTO;
 import com.onuraltuntas.springblog.model.payload.request.CheckAuthRequest;
 import com.onuraltuntas.springblog.model.payload.request.TokenRefreshRequest;
+import com.onuraltuntas.springblog.repository.UserRepository;
 import com.onuraltuntas.springblog.security.JwtUtils;
 import com.onuraltuntas.springblog.service.UserService;
 import jakarta.validation.Valid;
@@ -25,6 +27,7 @@ public class UserController {
     private final UserService userService;
     private final JwtUtils jwtUtils;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
 
     @PostMapping("/register")
@@ -38,9 +41,8 @@ public class UserController {
                 )
         );
     }
-
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user){
+    public ResponseEntity<?> loginUser(@Valid @RequestBody User user){
 
         return ResponseEntity.ok(
                 userService.setUserOtherParams(
@@ -60,26 +62,48 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateUser(@Valid @RequestBody User user,@RequestParam(value = "id",required = true)Long id){
-        log.info("id : {}",id);
+    public ResponseEntity<?> updateUser(@Valid @RequestBody User user,@RequestParam(value = "id",required = true)Long id,
+            @RequestHeader (name="Authorization") String token){
+
+
+
         if(id==null){
             return ResponseEntity.badRequest().body("Bad request!");
         }
 
-        UserDTO userDTO = modelMapper.map(userService.updateUser(user,id), UserDTO.class);
+        User user1 = userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("post is not found with this id : "+ id));
 
-        return ResponseEntity.ok(userDTO);
+
+        String auth = jwtUtils.getAuthorityClaim(token);
+
+        if(user1.getEmail().equals(jwtUtils.extractUsername(token.substring(7))) || auth.equals("ROLE_ADMIN") ){
+            UserDTO userDTO = modelMapper.map(userService.updateUser(user,id), UserDTO.class);
+            return ResponseEntity.ok(userDTO);
+        }else{
+            return ResponseEntity.badRequest().body("You are not allowed to this action!");
+        }
+
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestParam(value = "id",required = true)Long id){
+    public ResponseEntity<?> deleteUser(@RequestParam(value = "id",required = true)Long id
+            ,@RequestHeader (name="Authorization") String token){
+
         if(id==null){
             return ResponseEntity.badRequest().body("Bad request!");
         }
 
-        userService.deleteUser(id);
+        User user1 = userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("post is not found with this id : "+ id));
 
-        return ResponseEntity.ok("success");
+        String auth = jwtUtils.getAuthorityClaim(token);
+
+        if(user1.getEmail().equals(jwtUtils.extractUsername(token.substring(7)))|| auth.equals("ROLE_ADMIN") ){
+            userService.deleteUser(id);
+            return ResponseEntity.ok("success");
+        }else{
+            return ResponseEntity.badRequest().body("You are not allowed to this action!");
+        }
+
     }
 
 }

@@ -67,6 +67,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private Set<Post> posts = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY,orphanRemoval = true)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private Set<Comment> comments = new HashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();

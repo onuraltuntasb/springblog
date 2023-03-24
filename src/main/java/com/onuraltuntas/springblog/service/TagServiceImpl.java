@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -37,22 +36,21 @@ public class TagServiceImpl implements TagService{
     @Override
     public void deleteTag(Long tagId) {
 
+        Tag t = tagRepository.findById(tagId).orElseThrow(()-> new ResourceNotFoundException("tag is not found with this id : " + tagId));
 
         Set<Long> tags = new HashSet<>();
 
         tags.add(tagId);
 
         Set<Post> posts = postRepository.findPostsByTagsIn(tags);
-        List<Tag> tagsList = tagRepository.findAll();
-
-
 
         for (Post post:posts) {
-            log.info("Posts : {}",post.getHeader());
             post.removeTag(tagId);
         }
 
-        //tagRepository.deleteById(tagId);
+        tagRepository.deleteById(tagId);
+        //TODO has to be same id with deleted tag.
+        //tagRepository.save(t);
 
     }
 
