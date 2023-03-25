@@ -3,9 +3,10 @@ package com.onuraltuntas.springblog.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,17 +17,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Component
-@Slf4j
-@Data
-@RequiredArgsConstructor
 public class JwtUtils {
 
     @Value("${onuraltuntas.app.jwtSecret}")
-    private String jwtSigningKey;
+    private String jwtSigningKey ="secretKey";
 
     @Value("${onuraltuntas.app.jwtExpirationMs}")
-    private Long jwtExpirationMs;
+    private int jwtExpirationMs;
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
@@ -54,9 +57,6 @@ public class JwtUtils {
     }
 
 
-
-
-
     public<T> T extractClaim(String token, Function<Claims,T> claimsResolver){
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -75,7 +75,6 @@ public class JwtUtils {
     }
 
     public String createToken(Map<String,Object> claims, UserDetails userDetails){
-        log.info("bak bura :{}",userDetails.getAuthorities());
 
         return Jwts.builder().setClaims(claims)
                 .setSubject(userDetails.getUsername())
@@ -89,13 +88,11 @@ public class JwtUtils {
 
     public Boolean isTokenValid(String token,UserDetails userDetails){
         final String username = extractUsername(token);
-        log.info("jwtUtilsValidName : {}",username);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     public Boolean isTokenValid(String token,String email){
         final String username = extractUsername(token);
-        log.info("jwtUtilsValidName : {}",username);
         return (username.equals(email) && !isTokenExpired(token));
     }
 }

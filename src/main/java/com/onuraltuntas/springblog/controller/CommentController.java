@@ -9,6 +9,7 @@ import com.onuraltuntas.springblog.security.JwtUtils;
 import com.onuraltuntas.springblog.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,8 @@ public class CommentController {
 
     @PostMapping("/save")
     public ResponseEntity<?> saveComment(@Valid @RequestBody CommentRequest commentRequest,
-    @RequestParam(value = "user-id")Long userId,@RequestParam(value = "post-id")Long postId,
-                                      @RequestParam(value = "comment-id")Long commentId){
+                                         @RequestParam(value = "user-id")Long userId,@RequestParam(value = "post-id")Long postId,
+                                         @RequestParam(value = "comment-id")Long commentId){
 
         if(userId == null || postId ==null || commentId ==null){
             System.out.println("postId" + postId);
@@ -57,8 +58,8 @@ public class CommentController {
 
     @PutMapping("/update")
     public ResponseEntity<?> updateComment(@Valid @RequestBody CommentRequest commentRequest,
-                                      @RequestParam(value = "user-id")Long userId,@RequestParam(value = "post-id")Long postId,
-                                      @RequestParam(value = "comment-id")Long commentId,
+                                           @RequestParam(value = "user-id")Long userId,@RequestParam(value = "post-id")Long postId,
+                                           @RequestParam(value = "comment-id")Long commentId,
                                            @RequestHeader (name="Authorization") String token){
 
         if(userId == null || postId == null || commentId == null){

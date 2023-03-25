@@ -20,14 +20,14 @@ import java.io.IOException;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-@Component
 @RequiredArgsConstructor
 @Slf4j
+@Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
 
     private final UserRepository userRepository;
-    private final JwtUtils jwtUtils;
+
 
 
     @Override
@@ -44,13 +44,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         jwtToken = authHeader.substring(7);
-        userEmail = jwtUtils.extractUsername(jwtToken);
+        userEmail = new JwtUtils().extractUsername(jwtToken);
         log.info("userEmail : {}", userEmail);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = (UserDetails) userRepository.findUserByEmail(userEmail)
                     .orElseThrow(() -> new ResourceNotFoundException("Not found email with = " + userEmail));
 
-            if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
+            if (new JwtUtils().isTokenValid(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

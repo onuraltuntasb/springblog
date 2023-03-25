@@ -25,6 +25,7 @@ public class SetupDataLoader implements
     private final UserRepository userRepository;
 
     boolean alreadySetup = false;
+    //TODO learn how to active hear on ci/cd
 
 
     @Override
@@ -45,7 +46,7 @@ public class SetupDataLoader implements
 
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 
-        //admin set
+//        admin set
 //        User user = new User();
 //        user.setName("Admin");
 //        user.setPassword(passwordEncoder.encode("test"));

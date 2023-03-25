@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService{
     private final AuthenticationManager authenticationManager;
     private final RefreshTokenService refreshTokenService;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final JwtUtils jwtUtils;
     private final RoleRepository roleRepository;
 
 
@@ -110,7 +109,7 @@ public class UserServiceImpl implements UserService{
                     .name(user.getName())
                     .email(user.getEmail())
                     .authorities(user.getAuthorities())
-                    .jwtToken(jwtUtils.generateToken(userDetails))
+                    .jwtToken(new JwtUtils().generateToken(userDetails))
                     .jwtRefreshToken(refreshToken.getToken())
                     .build();
             return userAuthResponse;
@@ -128,7 +127,7 @@ public class UserServiceImpl implements UserService{
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(user -> {
-                    String token = jwtUtils.generateToken(user);
+                    String token = new JwtUtils().generateToken(user);
                     return new TokenRefreshResponse(token, requestRefreshToken);
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
