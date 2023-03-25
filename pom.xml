@@ -11,7 +11,7 @@
     <groupId>com.onuraltuntas</groupId>
     <artifactId>SpringBlog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SpringBlog</name>
+    <name>springblog</name>
     <description>SpringBlog</description>
     <properties>
         <java.version>17</java.version>
@@ -110,6 +110,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>springblog-new</finalName>
     </build>
 
 </project>

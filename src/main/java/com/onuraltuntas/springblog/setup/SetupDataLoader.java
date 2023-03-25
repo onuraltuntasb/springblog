@@ -22,11 +22,9 @@ public class SetupDataLoader implements
 
     private final PrivilegeRepository privilegeRepository;
     private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
 
     boolean alreadySetup = false;
     //TODO learn how to active hear on ci/cd
-
 
     @Override
     @Transactional
