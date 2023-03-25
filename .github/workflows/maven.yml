@@ -32,12 +32,12 @@ jobs:
     - name: Build & push Docker image
       uses: docker/build-push-action@v4
       with:
-        - image: onuraltuntasb/springblog
-        - tags: latest
-        - registry : docker.io
-        - dockerfile : Dockerfile
-        - username : ${{secrets.DOCKER_USERNAME}}
-        - password : ${{secrets.DOCKER_PASSWORD}}
+          image: onuraltuntasb/springblog
+          tags: latest
+          registry : docker.io
+          dockerfile : Dockerfile
+          username : ${{secrets.DOCKER_USERNAME}}
+          password : ${{secrets.DOCKER_PASSWORD}}
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
