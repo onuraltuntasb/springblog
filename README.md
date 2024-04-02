@@ -146,16 +146,16 @@ Some credits for this project
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/onuraltuntasb/springblog-parent.svg?style=for-the-badge
-[contributors-url]: https://github.com/onuraltuntasb/springblog-parent/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/onuraltuntasb/springblog-parent.svg?style=for-the-badge
-[forks-url]: https://github.com/onuraltuntasb/springblog-parent/network/members
-[stars-shield]: https://img.shields.io/github/stars/onuraltuntasb/springblog-parent.svg?style=for-the-badge
-[stars-url]: https://github.com/onuraltuntasb/springblog-parent/stargazers
-[issues-shield]: https://img.shields.io/github/issues/onuraltuntasb/springblog-parent.svg?style=for-the-badge
-[issues-url]: https://github.com/onuraltuntasb/springblog-parent/issues
-[license-shield]: https://img.shields.io/github/license/onuraltuntasb/springblog-parent.svg?style=for-the-badge
-[license-url]: https://github.com/onuraltuntasb/springblog-parent/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/onuraltuntasb/springblog.svg?style=for-the-badge
+[contributors-url]: https://github.com/onuraltuntasb/springblog/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/onuraltuntasb/springblog.svg?style=for-the-badge
+[forks-url]: https://github.com/onuraltuntasb/springblog/network/members
+[stars-shield]: https://img.shields.io/github/stars/onuraltuntasb/springblog.svg?style=for-the-badge
+[stars-url]: https://github.com/onuraltuntasb/springblog/stargazers
+[issues-shield]: https://img.shields.io/github/issues/onuraltuntasb/springblog.svg?style=for-the-badge
+[issues-url]: https://github.com/onuraltuntasb/springblog/issues
+[license-shield]: https://img.shields.io/github/license/onuraltuntasb/springblog.svg?style=for-the-badge
+[license-url]: https://github.com/onuraltuntasb/springblog/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: www.linkedin.com/in/onur-altuntas1
 [codebase]: readme-assets/springblog-postman.png
