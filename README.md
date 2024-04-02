@@ -62,11 +62,10 @@ backend
 
 The 2 principles of project:
 
-- Follow spring boot 3 tier pattern as long as you can
-- Follow react principles as long as you can
+-   Follow spring boot 3 tier pattern as long as you can
+-   Follow react principles as long as you can
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ### Built With
 
@@ -92,10 +91,11 @@ These are some technologies used to develop the project.
     ```sh
     git clone https://github.com/onuraltuntasb/springblog
     ```
-2. Run 
- ```sh
-     mvn spring-boot:run
-   ```
+2. Run
+
+```sh
+    mvn spring-boot:run
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -108,7 +108,6 @@ These are some technologies used to develop the project.
 
 <br/>
 
-
 _For more examples, please refer to the [Documentation](https://github.com/onuraltuntasb/feelsafe-ui)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -120,7 +119,6 @@ See the [open issues](https://github.com/onuraltuntasb/feelsafe-ui/issues) for a
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
-
 
 ## License
 
@@ -144,7 +142,7 @@ Project Link: [https://github.com/onuraltuntasb/feelsafe-ui](https://github.com/
 
 Some credits for this project
 
-- [Choose an Open Source License](https://choosealicense.com)
+-   [Choose an Open Source License](https://choosealicense.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -160,10 +158,7 @@ Some credits for this project
 [license-url]: https://github.com/onuraltuntasb/springblog-parent/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: www.linkedin.com/in/onur-altuntas1
-[landing-screenshot]: readme-assets/ticket-generator-landing.png
-[signin-screenshot]: readme-assets/ticket-generator-register.png
-[dashboard-screenshot]: readme-assets/ticket-generator-seat.png
-[codebase]: readme-assets/springblog.png
+[codebase]: readme-assets/springblog-postman.png
 [SpringBoot]: https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white
 [SpringBoot-url]: https://spring.io/projects/spring-boot
 [MAVEN]: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAzFBMVEVHcExwLIZpK4PIIDjJIDfXQS85KGyRHVP1lSKPL27odCbJIjflbSiZI2S5IEeGJnWpIFewIE6rIFWrIFMqJmPQNDPEIDvKJDfLIDb0kSPFIDvxjCPeWSvFIDvJIDe/IEDfWSvfWyvXQC+0IEx+KHyFJnaDJneBJ3m8IETOKTTjainoeSf0lSPndCfLIDbeWCzjaSl+KHuKJXN6KX27IER/KHu2IEmbImWGJnV/KHvKIDazIEy/IEDOJjTaSy7hYCrqeyaJJXPpeCbdVSxkhj7EAAAAOnRSTlMANkom8usWBP0MG8P5Ht7M96m24UdcpDeviP5xPpjl+NzOwUgkqbfgk/Jx5ufdiKnelGOdyo72UWrsTLVmUAAAANZJREFUKJF90VeTgjAUhuGAwQRFql13FcGuW3TXkgSw/P//5Dhe+oVzmWfeM5mEkLfpcV57P33NgHPe09jwsuF8gK3246wvN83a7yJ2nC22Vh6Pi2IFjVnWJL/HNsSvbGLl1hBahdJ6li07ED9E/VOILkPWobQrBK3gUD3DNgxtd9RW/X4Lhol0/5Qa4a2BDA5SLaCxKAqldBsQG34YST+Blp6uoR8c8cux2dzzpjtoxP6fna9TbMTw9vNffBvCbDPVZM+1pt6IYZSgWdUba5aE1VJEv/gAhbgShVrVkEQAAAAASUVORK5CYII=
